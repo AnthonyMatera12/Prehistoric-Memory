@@ -1,8 +1,8 @@
 // Anthony Matera anm326 
 
-// author and pub dropdowns only work after the add button is pushed
+// after refresh, author and pub dropdowns only work after the add button is pushed
 // when list is clicked, the title box says "please fill out this field"
-// year has limit values (0 to 2024)
+// go back and comment code
 
 const express = require("express");
 const path = require("path");
