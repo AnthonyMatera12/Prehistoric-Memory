@@ -1,7 +1,6 @@
 // Anthony Matera anm326 
 
 // after refresh, author and pub dropdowns only work after the add button is pushed
-// when list is clicked, the title box says "please fill out this field"
 // go back and comment code
 
 const express = require("express");
