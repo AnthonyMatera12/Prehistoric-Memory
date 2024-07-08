@@ -9,10 +9,12 @@
   <div id="container">
     <h1>Personal Library</h1>
     <div id="app-layout">
+      <!-- Input section for adding books -->
       <div id="input-section">
         <form id="bookForm">
           <input type="text" id="title" placeholder="Title" required>
           
+          <!-- Author input with dropdown -->
           <div class="input-dropdown-combo">
             <input type="text" id="author" placeholder="Author" required>
             <select id="authorDropdown">
@@ -20,6 +22,7 @@
             </select>
           </div>
           
+          <!-- Genre dropdown -->
           <select id="genre" required>
             <option value="">Select Genre</option>
             <option value="Fiction">Fiction</option>
@@ -29,6 +32,7 @@
             <option value="Biography">Biography</option>
           </select>
           
+          <!-- Publisher input with dropdown -->
           <div class="input-dropdown-combo">
             <input type="text" id="publisher" placeholder="Publisher" required>
             <select id="publisherDropdown">
@@ -38,6 +42,7 @@
           
           <input type="number" id="year" placeholder="Year of publication" required min="0" max="2024">
           
+          <!-- Book type checkboxes -->
           <div id="bookTypes">
             <label>Type of book:</label>
             <div class="book-type-row">
@@ -50,15 +55,20 @@
             </div>
           </div>
 
+          <!-- Add button section -->
           <div class="button-container">
             <button type="submit" id="addButton">Add</button>
           </div>
         </form>
-          <div class="button-container">
-            <button id="listButton">List</button>
-          </div>
+        
+        <!-- List button section -->
+        <div class="button-container">
+          <button id="listButton">List</button>
         </div>
-        <div id="book-list-section">
+      </div>
+      
+      <!-- Book list display section -->
+      <div id="book-list-section">
         <table id="bookList" style="border: 3px solid black;">
           <thead> 
             <tr>
@@ -73,7 +83,9 @@
           <tbody></tbody>
         </table>
       </div>
+    </div>
   </div>
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>  
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
   <script src="../scripts/script.js"></script>

@@ -29,6 +29,14 @@ let bookList = [];
 let authors = new Set();
 let publishers = new Set();
 
+// New route to get initial dropdown data
+app.get("/getDropdownData", (req, res) => {
+  res.json({ 
+    authors: Array.from(authors), 
+    publishers: Array.from(publishers) 
+  });
+});
+
 // Route to add a new book
 app.post("/addBook", (req, res) => {
   const { title, author, genre, publisher, year, types } = req.body;

@@ -1,11 +1,14 @@
+/* Main body style */
+
 body {
-    /* font-family: 'Times New Roman', Times, serif; */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
     color: black;
     background-color: white;
 }
+
+/* Container layout */
 
 #container {
     max-width: 1200px;
@@ -15,6 +18,8 @@ body {
 h1 {
     margin-bottom: 20px;
 }
+
+/* App layout */
 
 #app-layout {
     display: flex;
@@ -29,6 +34,8 @@ h1 {
     flex: 2;
 }
 
+/* Form styles */
+
 form {
     display: flex;
     flex-direction: column;
@@ -40,6 +47,8 @@ input, select {
     padding: 5px;
     border: 1px solid black;
 }
+
+/* Button styles */
 
 .button-container {
     width: 100%;
@@ -62,12 +71,12 @@ input, select {
     cursor: pointer;
 }
 
+/* Table styles */
 
 table, tr, td, th {
     white-space: normal;
     word-wrap: break-word;
     overflow: visible;
-
     border: 1px solid black;
 }
   
@@ -94,6 +103,8 @@ th {
     font-size: 13px; 
 }
 
+/* Input and dropdown combination */
+
 .input-dropdown-combo {
     display: flex;
     gap: 10px;
@@ -106,7 +117,9 @@ th {
 .input-dropdown-combo select {
     width: 150px;
 }
-  
+
+/* Book types section */
+
 #bookTypes {
     display: flex;
     flex-direction: column;
@@ -133,6 +146,7 @@ th {
 }
 
 /* Alternating row colors */
+
 #bookList tr:nth-child(odd) {
     background-color: #E6F0F9; /* Lighter pastel blue */
 }
@@ -140,7 +154,6 @@ th {
 #bookList tr:nth-child(even) {
     background-color: #D0E2F2; /* Slightly darker pastel blue */
 }
-
 
 /* Adjust column widths */
 #bookList th:nth-child(1), #bookList td:nth-child(1) { width: 20%; } /* Title */
@@ -157,7 +170,7 @@ th {
     overflow: visible;
 }
 
-/* remove spin button */
+/* Remove spin button */
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;

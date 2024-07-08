@@ -1,3 +1,4 @@
+// Initialize event listeners and fetch initial data
 function init() {
   $("#bookForm").on("submit", addBook);
   $("#listButton").on("click", listBooks);
@@ -7,9 +8,24 @@ function init() {
   $("#publisherDropdown").on("change", function() {
     $("#publisher").val($(this).val());
   });
-  updateDropdowns();
+  fetchInitialDropdownData();
 }
 
+// Fetch initial data for author and publisher dropdowns
+function fetchInitialDropdownData() {
+  $.ajax({
+    url: "/getDropdownData",
+    method: "GET",
+    success: function(response) {
+      updateDropdowns(response.authors, response.publishers);
+    },
+    error: function(xhr, status, error) {
+      console.error("Error fetching dropdown data:", error);
+    }
+  });
+}
+
+// Add book to the library
 function addBook(e) {
   e.preventDefault();
   const book = {
@@ -35,6 +51,7 @@ function addBook(e) {
   });
 }
 
+// Update author and publisher dropdowns
 function updateDropdowns(authors = [], publishers = []) {
   $("#authorDropdown").html("<option value=''>Select Author</option>" + 
     authors.map(author => `<option value="${author}">${author}</option>`).join(""));
@@ -42,6 +59,7 @@ function updateDropdowns(authors = [], publishers = []) {
     publishers.map(publisher => `<option value="${publisher}">${publisher}</option>`).join(""));
 }
 
+// Fetch and display the list of books
 function listBooks() {
   $.ajax({
     url: "/getBooks",
