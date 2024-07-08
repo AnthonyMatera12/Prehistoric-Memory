@@ -155,14 +155,6 @@ th {
     background-color: #D0E2F2; /* Slightly darker pastel blue */
 }
 
-/* Adjust column widths */
-#bookList th:nth-child(1), #bookList td:nth-child(1) { width: 20%; } /* Title */
-#bookList th:nth-child(2), #bookList td:nth-child(2) { width: 15%; } /* Author */
-#bookList th:nth-child(3), #bookList td:nth-child(3) { width: 15%; } /* Genre */
-#bookList th:nth-child(4), #bookList td:nth-child(4) { width: 15%; } /* Publisher */
-#bookList th:nth-child(5), #bookList td:nth-child(5) { width: 10%; } /* Year */
-#bookList th:nth-child(6), #bookList td:nth-child(6) { width: 25%; } /* Type */
-
 /* Updated styles for multi-line text in cells */
 #bookList td {
     white-space: normal;
@@ -175,3 +167,11 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* Adjust column widths */
+#bookList th:nth-child(1), #bookList td:nth-child(1) { width: 20%; } /* Title */
+#bookList th:nth-child(2), #bookList td:nth-child(2) { width: 15%; } /* Author */
+#bookList th:nth-child(3), #bookList td:nth-child(3) { width: 15%; } /* Genre */
+#bookList th:nth-child(4), #bookList td:nth-child(4) { width: 15%; } /* Publisher */
+#bookList th:nth-child(5), #bookList td:nth-child(5) { width: 10%; } /* Year */
+#bookList th:nth-child(6), #bookList td:nth-child(6) { width: 25%; } /* Type */

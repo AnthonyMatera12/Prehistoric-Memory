@@ -1,7 +1,6 @@
 // Anthony Matera anm326 
 
-// after refresh, author and pub dropdowns only work after the add button is pushed
-// go back and comment code
+// should the table be loaded on refresh?
 
 const express = require("express");
 const path = require("path");
