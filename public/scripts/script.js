@@ -1,88 +1,104 @@
-// Initialize event listeners and fetch initial data
-function init() {
-  $("#bookForm").on("submit", addBook);
-  $("#listButton").on("click", listBooks);
-  $("#authorDropdown").on("change", function() {
-    $("#author").val($(this).val());
-  });
-  $("#publisherDropdown").on("change", function() {
-    $("#publisher").val($(this).val());
-  });
-  fetchInitialDropdownData();
-}
+// Content of /public/js/script.js
+let gameBoard = document.getElementById('game-board');
+let startButton = document.getElementById('start-button');
+let movesDisplay = document.getElementById('moves');
+let timerDisplay = document.getElementById('timer');
+let scoreDisplay = document.getElementById('score');
 
-// Fetch initial data for author and publisher dropdowns
-function fetchInitialDropdownData() {
-  $.ajax({
-    url: "/getDropdownData",
-    method: "GET",
-    success: function(response) {
-      updateDropdowns(response.authors, response.publishers);
-    },
-    error: function(xhr, status, error) {
-      console.error("Error fetching dropdown data:", error);
+let cards = [];
+let flippedCards = [];
+let moves = 0;
+let score = 0;
+let timer;
+let seconds = 0;
+
+startButton.addEventListener('click', startNewGame);
+
+async function startNewGame() {
+    clearInterval(timer);
+    gameBoard.innerHTML = '';
+    cards = [];
+    flippedCards = [];
+    moves = 0;
+    score = 0;
+    seconds = 0;
+    movesDisplay.textContent = moves;
+    scoreDisplay.textContent = score;
+    timerDisplay.textContent = '00:00';
+
+    try {
+        const response = await fetch('/api/game-data');
+        let elements = await response.json();
+        elements = elements.sort(() => 0.5 - Math.random()).slice(0, 18);
+        elements = [...elements, ...elements].sort(() => 0.5 - Math.random());
+
+        elements.forEach((element, index) => {
+            let card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.index = index;
+            card.dataset.symbol = element.symbol;
+            card.dataset.group = element.group;
+            card.dataset.period = element.period;
+            card.addEventListener('click', flipCard);
+            gameBoard.appendChild(card);
+            cards.push(card);
+        });
+
+        timer = setInterval(updateTimer, 1000);
+    } catch (error) {
+        console.error('Error fetching game data:', error);
     }
-  });
 }
 
-// Add book to the library
-function addBook(e) {
-  e.preventDefault();
-  const book = {
-    title: $("#title").val(),
-    author: $("#author").val(),
-    genre: $("#genre").val(),
-    publisher: $("#publisher").val(),
-    year: $("#year").val(),
-    types: $("input[type=checkbox]:checked").map(function() {
-      return $(this).val();
-    }).get()
-  };
+function flipCard() {
+    if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
+        this.textContent = this.dataset.symbol;
+        this.classList.add('flipped');
+        flippedCards.push(this);
 
-  $.ajax({
-    url: "/addBook",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(book),
-    success: function(response) {
-      updateDropdowns(response.authors, response.publishers);
-      $("#bookForm")[0].reset();
+        if (flippedCards.length === 2) {
+            moves++;
+            movesDisplay.textContent = moves;
+            setTimeout(checkMatch, 1000);
+        }
     }
-  });
 }
 
-// Update author and publisher dropdowns
-function updateDropdowns(authors = [], publishers = []) {
-  $("#authorDropdown").html("<option value=''>Select Author</option>" + 
-    authors.map(author => `<option value="${author}">${author}</option>`).join(""));
-  $("#publisherDropdown").html("<option value=''>Select Publisher</option>" + 
-    publishers.map(publisher => `<option value="${publisher}">${publisher}</option>`).join(""));
-}
+function checkMatch() {
+    let [card1, card2] = flippedCards;
+    let isMatch = card1.dataset.symbol === card2.dataset.symbol ||
+                  card1.dataset.group === card2.dataset.group ||
+                  card1.dataset.period === card2.dataset.period;
 
-// Fetch and display the list of books
-function listBooks() {
-  $.ajax({
-    url: "/getBooks",
-    method: "GET",
-    success: function(books) {
-      let tableBody = "";
-      books.forEach(book => {
-        tableBody += `
-          <tr>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>${book.genre}</td>
-            <td>${book.publisher}</td>
-            <td>${book.year}</td>
-            <td>${book.types.join(", ")}</td>
-          </tr>
-        `;
-      });
-      $("#bookList tbody").html(tableBody);
+    if (isMatch) {
+        score += 10;
+        scoreDisplay.textContent = score;
+        card1.removeEventListener('click', flipCard);
+        card2.removeEventListener('click', flipCard);
+    } else {
+        card1.textContent = '';
+        card2.textContent = '';
+        card1.classList.remove('flipped');
+        card2.classList.remove('flipped');
     }
-  });
+
+    flippedCards = [];
+
+    if (document.querySelectorAll('.flipped').length === cards.length) {
+        clearInterval(timer);
+        alert(`Congratulations! You've completed the game in ${moves} moves and ${formatTime(seconds)}!`);
+    }
 }
 
-$(() => {
-  init();
-});
+function updateTimer() {
+    seconds++;
+    timerDisplay.textContent = formatTime(seconds);
+}
+
+function formatTime(totalSeconds) {
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+startNewGame();

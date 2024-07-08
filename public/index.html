@@ -1,93 +1,22 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Personal Library</title> 
-    <link rel="stylesheet" href="../styles/styles.css"/>
-  </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elemental Memory</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 <body>
-  <div id="container">
-    <h1>Personal Library</h1>
-    <div id="app-layout">
-      <!-- Input section for adding books -->
-      <div id="input-section">
-        <form id="bookForm">
-          <input type="text" id="title" placeholder="Title" required>
-          
-          <!-- Author input with dropdown -->
-          <div class="input-dropdown-combo">
-            <input type="text" id="author" placeholder="Author" required>
-            <select id="authorDropdown">
-              <option value="">Select Author</option>
-            </select>
-          </div>
-          
-          <!-- Genre dropdown -->
-          <select id="genre" required>
-            <option value="">Select Genre</option>
-            <option value="Fiction">Fiction</option>
-            <option value="Non-fiction">Non-fiction</option>
-            <option value="Science Fiction">Science Fiction</option>
-            <option value="Mystery">Mystery</option>
-            <option value="Biography">Biography</option>
-          </select>
-          
-          <!-- Publisher input with dropdown -->
-          <div class="input-dropdown-combo">
-            <input type="text" id="publisher" placeholder="Publisher" required>
-            <select id="publisherDropdown">
-              <option value="">Select Publisher</option>
-            </select>
-          </div>
-          
-          <input type="number" id="year" placeholder="Year of publication" required min="0" max="2024">
-          
-          <!-- Book type checkboxes -->
-          <div id="bookTypes">
-            <label>Type of book:</label>
-            <div class="book-type-row">
-              <label><input type="checkbox" id="hardcover" value="Hardcover"> Hardcover</label>
-              <label><input type="checkbox" id="paperback" value="Paperback"> Paperback</label>
-            </div>
-            <div class="book-type-row">
-              <label><input type="checkbox" id="ebook" value="E-book"> E-book</label>
-              <label><input type="checkbox" id="audio" value="Audio"> Audio</label>
-            </div>
-          </div>
-
-          <!-- Add button section -->
-          <div class="button-container">
-            <button type="submit" id="addButton">Add</button>
-          </div>
-        </form>
-        
-        <!-- List button section -->
-        <div class="button-container">
-          <button id="listButton">List</button>
+    <div class="game-container">
+        <h1>Elemental Memory</h1>
+        <div id="game-board"></div>
+        <div class="info-panel">
+            <p>Moves: <span id="moves">0</span></p>
+            <p>Time: <span id="timer">00:00</span></p>
+            <p>Score: <span id="score">0</span></p>
         </div>
-      </div>
-      
-      <!-- Book list display section -->
-      <div id="book-list-section">
-        <table id="bookList" style="border: 3px solid black;">
-          <thead> 
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Genre</th>
-              <th>Publisher</th>
-              <th>Year</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+        <button id="start-button">Start New Game</button>
     </div>
-  </div>
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>  
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
-  <script src="../scripts/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
