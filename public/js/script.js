@@ -1,4 +1,3 @@
-// Content of /public/js/script.js
 let gameBoard = document.getElementById('game-board');
 let startButton = document.getElementById('start-button');
 let movesDisplay = document.getElementById('moves');
@@ -28,6 +27,9 @@ async function startNewGame() {
 
     try {
         const response = await fetch('/api/game-data');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         let elements = await response.json();
         elements = elements.sort(() => 0.5 - Math.random()).slice(0, 18);
         elements = [...elements, ...elements].sort(() => 0.5 - Math.random());
@@ -47,6 +49,7 @@ async function startNewGame() {
         timer = setInterval(updateTimer, 1000);
     } catch (error) {
         console.error('Error fetching game data:', error);
+        gameBoard.innerHTML = '<p>Error loading game. Please try again.</p>';
     }
 }
 
@@ -101,4 +104,5 @@ function formatTime(totalSeconds) {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-startNewGame();
+// Don't auto-start the game, wait for user to click the button
+// startNewGame();
