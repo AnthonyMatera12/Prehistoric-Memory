@@ -103,6 +103,3 @@ function formatTime(totalSeconds) {
     let seconds = totalSeconds % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
-
-// Don't auto-start the game, wait for user to click the button
-// startNewGame();

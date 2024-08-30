@@ -9,6 +9,7 @@
   "author": "Anthony Matera",
   "license": "ISC",
   "dependencies": {
+    "elemental-memory": "file:",
     "express": "^4.19.2"
   }
 }
