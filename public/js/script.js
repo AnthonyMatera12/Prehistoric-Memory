@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const movesElement = document.getElementById('moves');
     const startNewGameButton = document.getElementById('start-new-game');
     const gameMessage = document.getElementById('game-message');
+    const bonusList = document.getElementById('bonuses');
 
     let firstCard = null;
     let secondCard = null;
@@ -54,11 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
         movesElement.textContent = `Moves: ${moves}`;
         gameBoard.innerHTML = '';
         gameMessage.style.display = 'none'; // Hide the message
+        bonusList.style.display = 'block'; // Show the bonus list
 
         // Show timer, score, and moves
         timerElement.style.display = 'block';
         scoreElement.style.display = 'block';
         movesElement.style.display = 'block';
+
+        // Remove the centering class from the start button
+        startNewGameButton.classList.remove('centered');
 
         // Shuffle the cards
         const shuffledCards = cardsArray.sort(() => 0.5 - Math.random());
@@ -139,34 +144,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let timeBonus = 0;
         let movesBonus = 0;
-        let bonusMessage = '';
+        let timeBonusMessage = '';
+        let movesBonusMessage = '';
 
         // Calculate time-based bonus
         if (timer <= 30) {
             timeBonus = 20;
-            bonusMessage += 'You earned a 20 point bonus for completing within 30 seconds!<br>';
+            timeBonusMessage = 'You earned a 20 second time bonus for completing within 30 seconds!';
         } else if (timer <= 45) {
             timeBonus = 15;
-            bonusMessage += 'You earned a 15 point bonus for completing within 45 seconds!<br>';
+            timeBonusMessage = 'You earned a 15 second time bonus for completing within 45 seconds!';
         } else if (timer <= 60) {
             timeBonus = 10;
-            bonusMessage += 'You earned a 10 point bonus for completing within 60 seconds!<br>';
+            timeBonusMessage = 'You earned a 10 second time bonus for completing within 60 seconds!';
         } else {
-            bonusMessage += 'No time-based bonus earned.<br>';
+            timeBonusMessage = 'No time-based bonus earned.';
         }
 
         // Calculate moves-based bonus
         if (moves <= 10) {
             movesBonus = 30;
-            bonusMessage += 'You earned a 30 point bonus for completing within 10 moves!';
+            movesBonusMessage = 'You earned a 30 move bonus for completing within 10 moves!';
         } else if (moves <= 15) {
             movesBonus = 20;
-            bonusMessage += 'You earned a 20 point bonus for completing within 15 moves!';
+            movesBonusMessage = 'You earned a 20 move bonus for completing within 15 moves!';
         } else if (moves <= 20) {
             movesBonus = 10;
-            bonusMessage += 'You earned a 10 point bonus for completing within 20 moves!';
+            movesBonusMessage = 'You earned a 10 move bonus for completing within 20 moves!';
         } else {
-            bonusMessage += 'No moves-based bonus earned.';
+            movesBonusMessage = 'No moves-based bonus earned.';
         }
 
         score += timeBonus + movesBonus;
@@ -178,7 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Time: ${timer}s</p>
             <p>Score: ${score}</p>
             <p>Moves: ${moves}</p>
-            <p>${bonusMessage}</p>
+            <p>${timeBonusMessage}</p>
+            <p>${movesBonusMessage}</p>
         `;
         gameMessage.style.display = 'block'; // Show the message
     }
@@ -189,4 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     timerElement.style.display = 'none';
     scoreElement.style.display = 'none';
     movesElement.style.display = 'none';
+
+    // Center the start button initially
+    startNewGameButton.classList.add('centered');
 });
