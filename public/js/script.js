@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreElement = document.getElementById('score');
     const movesElement = document.getElementById('moves');
     const startNewGameButton = document.getElementById('start-new-game');
+    const gameMessage = document.getElementById('game-message');
 
     let firstCard = null;
     let secondCard = null;
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer = 0;
     let interval;
     let gameStarted = false;
+    let matches = 0;
 
     function startTimer() {
         clearInterval(interval);
@@ -47,9 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimer();
         score = 0;
         moves = 0;
+        matches = 0;
         scoreElement.textContent = `Score: ${score}`;
         movesElement.textContent = `Moves: ${moves}`;
         gameBoard.innerHTML = '';
+        gameMessage.style.display = 'none'; // Hide the message
 
         // Show timer, score, and moves
         timerElement.style.display = 'block';
@@ -87,6 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         secondCard = this;
+        moves++;
+        movesElement.textContent = `Moves: ${moves}`;
         checkForMatch();
     }
 
@@ -99,6 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function disableCards() {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
+
+        score += 10;
+        scoreElement.textContent = `Score: ${score}`;
+        matches++;
+
+        if (matches === cardsArray.length / 2) {
+            endGame();
+        }
 
         resetBoard();
     }
@@ -118,6 +132,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function resetBoard() {
         [firstCard, secondCard, lockBoard] = [null, null, false];
+    }
+
+    function endGame() {
+        clearInterval(interval);
+
+        let timeBonus = 0;
+        let movesBonus = 0;
+        let bonusMessage = '';
+
+        // Calculate time-based bonus
+        if (timer <= 30) {
+            timeBonus = 20;
+            bonusMessage += 'You earned a 20 point bonus for completing within 30 seconds!<br>';
+        } else if (timer <= 45) {
+            timeBonus = 15;
+            bonusMessage += 'You earned a 15 point bonus for completing within 45 seconds!<br>';
+        } else if (timer <= 60) {
+            timeBonus = 10;
+            bonusMessage += 'You earned a 10 point bonus for completing within 60 seconds!<br>';
+        } else {
+            bonusMessage += 'No time-based bonus earned.<br>';
+        }
+
+        // Calculate moves-based bonus
+        if (moves <= 10) {
+            movesBonus = 30;
+            bonusMessage += 'You earned a 30 point bonus for completing within 10 moves!';
+        } else if (moves <= 15) {
+            movesBonus = 20;
+            bonusMessage += 'You earned a 20 point bonus for completing within 15 moves!';
+        } else if (moves <= 20) {
+            movesBonus = 10;
+            bonusMessage += 'You earned a 10 point bonus for completing within 20 moves!';
+        } else {
+            bonusMessage += 'No moves-based bonus earned.';
+        }
+
+        score += timeBonus + movesBonus;
+        scoreElement.textContent = `Score: ${score}`;
+
+        gameMessage.innerHTML = `
+            <h2>Congratulations!</h2>
+            <p>You completed the game.</p>
+            <p>Time: ${timer}s</p>
+            <p>Score: ${score}</p>
+            <p>Moves: ${moves}</p>
+            <p>${bonusMessage}</p>
+        `;
+        gameMessage.style.display = 'block'; // Show the message
     }
 
     startNewGameButton.addEventListener('click', startNewGame);
