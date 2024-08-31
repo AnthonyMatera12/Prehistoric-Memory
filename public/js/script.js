@@ -30,17 +30,17 @@ async function startNewGame() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        let elements = await response.json();
-        elements = elements.sort(() => 0.5 - Math.random()).slice(0, 18);
-        elements = [...elements, ...elements].sort(() => 0.5 - Math.random());
+        let dinosaurs = await response.json();
+        dinosaurs = dinosaurs.sort(() => 0.5 - Math.random()).slice(0, 18);
+        dinosaurs = [...dinosaurs, ...dinosaurs].sort(() => 0.5 - Math.random());
 
-        elements.forEach((element, index) => {
+        dinosaurs.forEach((dino, index) => {
             let card = document.createElement('div');
             card.classList.add('card');
             card.dataset.index = index;
-            card.dataset.symbol = element.symbol;
-            card.dataset.group = element.group;
-            card.dataset.period = element.period;
+            card.dataset.name = dino.name;
+            card.dataset.diet = dino.diet;
+            card.dataset.period = dino.period;
             card.addEventListener('click', flipCard);
             gameBoard.appendChild(card);
             cards.push(card);
@@ -55,7 +55,7 @@ async function startNewGame() {
 
 function flipCard() {
     if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
-        this.textContent = this.dataset.symbol;
+        this.textContent = this.dataset.name;
         this.classList.add('flipped');
         flippedCards.push(this);
 
@@ -69,8 +69,8 @@ function flipCard() {
 
 function checkMatch() {
     let [card1, card2] = flippedCards;
-    let isMatch = card1.dataset.symbol === card2.dataset.symbol ||
-                  card1.dataset.group === card2.dataset.group ||
+    let isMatch = card1.dataset.name === card2.dataset.name ||
+                  card1.dataset.diet === card2.dataset.diet ||
                   card1.dataset.period === card2.dataset.period;
 
     if (isMatch) {
