@@ -1,3 +1,4 @@
+/* Body style */
 body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     display: flex;
@@ -9,12 +10,14 @@ body {
     background-color: #e0f7fa;
 }
 
+/* Style for main heading */
 h1 {
     font-size: 3em;
     color: #00796b;
     margin-bottom: 20px;
 }
 
+/* Set up the game board grid */
 #game-board {
     display: grid;
     grid-template-columns: repeat(4, 100px);
@@ -22,6 +25,7 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Individual card style */
 .card {
     width: 100px;
     height: 100px;
@@ -35,20 +39,24 @@ h1 {
     transition: transform 0.3s;
 }
 
+/* Hover effect for cards */
 .card:hover {
     transform: scale(1.1);
 }
 
+/* Hide card images by default */
 .card img {
     display: none;
     width: 80%;
     height: 80%;
 }
 
+/* Show card image when flipped */
 .card.flipped img {
     display: block;
 }
 
+/* Style for game info section */
 #game-info {
     display: flex;
     justify-content: space-around;
@@ -58,6 +66,7 @@ h1 {
     color: #00796b;
 }
 
+/* Style for "Start New Game" button */
 #start-new-game {
     background-color: #4CAF50; 
     border: none; 
@@ -74,6 +83,7 @@ h1 {
     transition: background-color 0.3s;
 }
 
+/* Hover effect to the "Start New Game" button */
 #start-new-game:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049; 
 }
