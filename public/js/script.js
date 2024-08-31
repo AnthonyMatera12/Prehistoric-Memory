@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     highScoreElement.textContent = highScore;
 
+    // Start the game timer
     function startTimer() {
         clearInterval(interval);
         timer = 0;
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
+    // Start a new game
     function startNewGame() {
         gameStarted = true;
         startTimer();
@@ -90,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Flip a card
     function flipCard() {
         if (lockBoard) return;
         if (this === firstCard) return;
@@ -108,12 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
         checkForMatch();
     }
 
+    // Check if two flipped cards match
     function checkForMatch() {
         let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
         isMatch ? disableCards() : unflipCards();
     }
 
+    // Disable matched cards
     function disableCards() {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
@@ -129,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetBoard();
     }
 
+    // Unflip unmatched cards
     function unflipCards() {
         lockBoard = true;
 
@@ -142,10 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     }
 
+    // Reset the board state
     function resetBoard() {
         [firstCard, secondCard, lockBoard] = [null, null, false];
     }
 
+    // End the game
     function endGame() {
         clearInterval(interval);
 
