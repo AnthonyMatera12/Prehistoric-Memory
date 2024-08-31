@@ -92,7 +92,7 @@ h1 {
 
 /* Hover effect for the "Reset High Score" button */
 #reset-high-score:hover {
-    background-color: #00796b; /* Darker green on hover */
+    background-color: #00796b;
 }
 
 /* Game board and game information container */
@@ -133,7 +133,7 @@ h1 {
 }
 
 .card.flipped {
-    background-image: url(''); /* This will be set dynamically in JavaScript */
+    background-image: url(''); /* This will be set dynamically in js */
 }
 
 /* Hover effect for cards */
