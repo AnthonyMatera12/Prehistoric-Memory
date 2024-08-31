@@ -53,6 +53,22 @@ h1 {
 #time-bonus, #move-bonus {
     font-weight: bold;
 }
+/* High score styling */
+#high-score {
+    border: 2px solid #00796b;
+    background-color: #b2dfdb;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 1.5em;   
+    color: #00796b;
+}
+
+#high-score {
+    text-align: center;
+    font-size: 1.5em;
+    color: #00796b;
+}
 
 /* Game board and game information container */
 #game-board-info-container {
@@ -142,6 +158,7 @@ h1 {
     display: none;
 }
 
+/* Game message styles */
 #game-message {
     display: none;
     position: absolute;
@@ -158,4 +175,15 @@ h1 {
 
 #game-message.show {
     display: block;
+}
+
+#game-message .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
 }

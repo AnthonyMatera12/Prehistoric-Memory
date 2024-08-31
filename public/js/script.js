@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const movesElement = document.getElementById('moves');
     const startNewGameButton = document.getElementById('start-new-game');
     const gameMessage = document.getElementById('game-message');
+    const closeGameMessageButton = document.getElementById('close-game-message');
     const bonusList = document.getElementById('bonuses');
     const highScoreElement = document.getElementById('high-score');
 
@@ -190,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Moves: ${moves}</p>
             <p>${timeBonusMessage}</p>
             <p>${movesBonusMessage}</p>
+            <button id="close-game-message" class="close-button">x</button>
         `;
         gameMessage.style.display = 'block'; // Show the message
 
@@ -199,6 +201,11 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('highScore', highScore);
             highScoreElement.textContent = highScore;
         }
+
+        // Add event listener for the close button in the game message
+        document.getElementById('close-game-message').addEventListener('click', function() {
+            gameMessage.style.display = 'none';
+        });
     }
 
     startNewGameButton.addEventListener('click', startNewGame);
