@@ -27,10 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeGameMessageButton = document.getElementById('close-game-message');
     const bonusList = document.getElementById('bonuses');
     const highScoreElement = document.getElementById('high-score');
-<<<<<<< HEAD
-=======
     const resetHighScoreButton = document.getElementById('reset-high-score');
->>>>>>> newer-state
 
     let firstCard = null;
     let secondCard = null;
@@ -42,11 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameStarted = false;
     let matches = 0;
     let highScore = localStorage.getItem('highScore') || 0;
-<<<<<<< HEAD
-
-    highScoreElement.textContent = highScore;
-=======
->>>>>>> newer-state
 
     highScoreElement.textContent = highScore;
 
@@ -223,19 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         gameMessage.style.display = 'block'; // Show the message
 
-<<<<<<< HEAD
-        // Update high score if the current score is higher
-        if (score > highScore) {
-            highScore = score;
-            localStorage.setItem('highScore', highScore);
-            highScoreElement.textContent = highScore;
-        }
-=======
         // Add event listener for the close button in the game message
         document.getElementById('close-game-message').addEventListener('click', function() {
             gameMessage.style.display = 'none';
         });
->>>>>>> newer-state
     }
 
     startNewGameButton.addEventListener('click', startNewGame);
