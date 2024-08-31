@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreElement = document.getElementById('score');
     const movesElement = document.getElementById('moves');
     const startNewGameButton = document.getElementById('start-new-game');
+
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
@@ -30,8 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let moves = 0;
     let timer = 0;
     let interval;
+    let gameStarted = false;
 
     function startTimer() {
+        clearInterval(interval);
+        timer = 0;
         interval = setInterval(() => {
             timer++;
             timerElement.textContent = `Time: ${timer}s`;
@@ -51,14 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
         score = 0;
         moves = 0;
         timer = 0;
+        gameStarted = true;
 
         // Clear the game board
         gameBoard.innerHTML = '';
 
-        // Reset UI elements
+        // Reset and show UI elements
         timerElement.textContent = 'Time: 0s';
         scoreElement.textContent = 'Score: 0';
         movesElement.textContent = 'Moves: 0';
+        timerElement.style.display = 'block';
+        scoreElement.style.display = 'block';
+        movesElement.style.display = 'block';
 
         // Create a new board
         createBoard();
@@ -68,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createBoard() {
         cardsArray.sort(() => 0.5 - Math.random());
+
         cardsArray.forEach(card => {
             const cardElement = document.createElement('div');
             cardElement.classList.add('card');
@@ -76,11 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
             cardElement.addEventListener('click', flipCard);
             gameBoard.appendChild(cardElement);
         });
+
         startTimer();
     }
 
     function flipCard() {
-        if (lockBoard) return;
+        if (!gameStarted || lockBoard) return;
         if (this === firstCard) return;
 
         this.classList.add('flipped');
@@ -93,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         secondCard = this;
         moves++;
         movesElement.textContent = `Moves: ${moves}`;
+
         checkForMatch();
     }
 
@@ -107,9 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
         score += 10;
         scoreElement.textContent = `Score: ${score}`;
         resetBoard();
+
         if (document.querySelectorAll('.card.flipped').length === cardsArray.length) {
             clearInterval(interval);
             alert(`Game Over! Your score is ${score} and you completed the game in ${timer} seconds with ${moves} moves.`);
+            gameStarted = false;
         }
     }
 
@@ -126,4 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
         [firstCard, secondCard, lockBoard] = [null, null, false];
     }
 
+    // Hide timer, score, and moves initially
+    timerElement.style.display = 'none';
+    scoreElement.style.display = 'none';
+    movesElement.style.display = 'none';
 });
+
