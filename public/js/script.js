@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startNewGameButton = document.getElementById('start-new-game');
     const gameMessage = document.getElementById('game-message');
     const bonusList = document.getElementById('bonuses');
+    const highScoreElement = document.getElementById('high-score');
 
     let firstCard = null;
     let secondCard = null;
@@ -35,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
     let gameStarted = false;
     let matches = 0;
+    let highScore = localStorage.getItem('highScore') || 0;
+
+    highScoreElement.textContent = highScore;
 
     function startTimer() {
         clearInterval(interval);
@@ -188,6 +192,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${movesBonusMessage}</p>
         `;
         gameMessage.style.display = 'block'; // Show the message
+
+        // Update high score if the current score is higher
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('highScore', highScore);
+            highScoreElement.textContent = highScore;
+        }
     }
 
     startNewGameButton.addEventListener('click', startNewGame);
