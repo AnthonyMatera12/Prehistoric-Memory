@@ -49,6 +49,11 @@ h1 {
     margin: 5px 0;
 }
 
+/* Bold the Time Bonuses and Move Bonuses */
+#time-bonus, #move-bonus {
+    font-weight: bold;
+}
+
 /* Game board and game information container */
 #game-board-info-container {
     text-align: center;
