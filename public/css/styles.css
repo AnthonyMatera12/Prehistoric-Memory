@@ -23,7 +23,7 @@ h1 {
     justify-content: center;
     align-items: flex-start;
     margin-top: 20px;
-    margin-left: 170px; /* Adjusted value to shift everything further to the right */
+    margin-left: 170px; 
 }
 
 /* Bonus styles */
@@ -53,6 +53,7 @@ h1 {
 #time-bonus, #move-bonus {
     font-weight: bold;
 }
+
 /* High score styling */
 #high-score {
     border: 2px solid #00796b;
@@ -72,7 +73,7 @@ h1 {
 
 /* Style for "Reset High Score" button */
 #reset-high-score {
-    background-color: #0b897a; /* Green background */
+    background-color: #0b897a; 
     border: none; 
     color: white;
     padding: 10px 20px; 
@@ -85,8 +86,8 @@ h1 {
     cursor: pointer; 
     border-radius: 8px;
     transition: background-color 0.3s;
-    width: 100%; /* Make the button as wide as its container */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 /* Hover effect for the "Reset High Score" button */
@@ -107,7 +108,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Add card styles */
+/* Card styles */
 .card {
     width: 100px;
     height: 100px;
@@ -169,18 +170,47 @@ h1 {
 
 /* Center the start button initially */
 #start-new-game.centered {
-    display: block;
-    margin: 20px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 100px;
+    padding: 20px 40px; 
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 30px; 
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Hover effect to the "Start New Game" button */
+/* Shift the start button to the left */
+#start-new-game.left {
+    position: static;
+    margin: 20px 0 20px 20px;
+    padding: 20px 40px; 
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px; 
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the "Start New Game" button */
 #start-new-game:hover {
-    background-color: #45a049; 
+    background-color: #37813b;
 }
 
+/* Style to hide elements */
 .hidden {
     display: none;
 }
+
 
 /* Game message styles */
 #game-message {
@@ -210,4 +240,8 @@ h1 {
     color: white;
     font-size: 1.5em;
     cursor: pointer;
+}
+
+#game-message .close-button:hover{
+    color: rgb(86, 86, 86);
 }

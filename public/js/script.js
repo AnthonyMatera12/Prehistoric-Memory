@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Remove the centering class from the start button
         startNewGameButton.classList.remove('centered');
+        startNewGameButton.classList.add('left'); // Shift the button to the left
 
         // Shuffle the cards
         const shuffledCards = cardsArray.sort(() => 0.5 - Math.random());
@@ -156,13 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate time-based bonus
         if (timer <= 30) {
             timeBonus = 20;
-            timeBonusMessage = 'You earned a 20 second time bonus for completing within 30 seconds!';
+            timeBonusMessage = 'You earned a 20 point time bonus for completing within 30 seconds!';
         } else if (timer <= 45) {
             timeBonus = 15;
-            timeBonusMessage = 'You earned a 15 second time bonus for completing within 45 seconds!';
+            timeBonusMessage = 'You earned a 15 point time bonus for completing within 45 seconds!';
         } else if (timer <= 60) {
             timeBonus = 10;
-            timeBonusMessage = 'You earned a 10 second time bonus for completing within 60 seconds!';
+            timeBonusMessage = 'You earned a 10 point time bonus for completing within 60 seconds!';
         } else {
             timeBonusMessage = 'No time-based bonus earned.';
         }
@@ -170,13 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate moves-based bonus
         if (moves <= 10) {
             movesBonus = 30;
-            movesBonusMessage = 'You earned a 30 move bonus for completing within 10 moves!';
+            movesBonusMessage = 'You earned a 30 point bonus for completing within 10 moves!';
         } else if (moves <= 15) {
             movesBonus = 20;
-            movesBonusMessage = 'You earned a 20 move bonus for completing within 15 moves!';
+            movesBonusMessage = 'You earned a 20 point bonus for completing within 15 moves!';
         } else if (moves <= 20) {
             movesBonus = 10;
-            movesBonusMessage = 'You earned a 10 move bonus for completing within 20 moves!';
+            movesBonusMessage = 'You earned a 10 point bonus for completing within 20 moves!';
         } else {
             movesBonusMessage = 'No moves-based bonus earned.';
         }
