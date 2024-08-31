@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerElement = document.getElementById('timer');
     const scoreElement = document.getElementById('score');
     const movesElement = document.getElementById('moves');
+    const startNewGameButton = document.getElementById('start-new-game');
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
@@ -35,6 +36,34 @@ document.addEventListener('DOMContentLoaded', () => {
             timer++;
             timerElement.textContent = `Time: ${timer}s`;
         }, 1000);
+    }
+
+    startNewGameButton.addEventListener('click', () => {
+        startNewGame();
+    });
+
+    function startNewGame() {
+        // Reset game state
+        clearInterval(interval);
+        firstCard = null;
+        secondCard = null;
+        lockBoard = false;
+        score = 0;
+        moves = 0;
+        timer = 0;
+
+        // Clear the game board
+        gameBoard.innerHTML = '';
+
+        // Reset UI elements
+        timerElement.textContent = 'Time: 0s';
+        scoreElement.textContent = 'Score: 0';
+        movesElement.textContent = 'Moves: 0';
+
+        // Create a new board
+        createBoard();
+
+        console.log('New game started!');
     }
 
     function createBoard() {
@@ -97,5 +126,4 @@ document.addEventListener('DOMContentLoaded', () => {
         [firstCard, secondCard, lockBoard] = [null, null, false];
     }
 
-    createBoard();
 });
