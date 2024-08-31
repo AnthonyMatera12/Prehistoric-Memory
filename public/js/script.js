@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeGameMessageButton = document.getElementById('close-game-message');
     const bonusList = document.getElementById('bonuses');
     const highScoreElement = document.getElementById('high-score');
+    const resetHighScoreButton = document.getElementById('reset-high-score');
 
     let firstCard = null;
     let secondCard = null;
@@ -183,6 +184,16 @@ document.addEventListener('DOMContentLoaded', () => {
         score += timeBonus + movesBonus;
         scoreElement.textContent = `Score: ${score}`;
 
+        let highScoreMessage = '';
+
+        // Update high score if the current score is higher
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('highScore', highScore);
+            highScoreElement.textContent = highScore;
+            highScoreMessage = '<p>Congratulations! You got the new high score!</p>';
+        }
+
         gameMessage.innerHTML = `
             <h2>Congratulations!</h2>
             <p>You completed the game.</p>
@@ -191,16 +202,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Moves: ${moves}</p>
             <p>${timeBonusMessage}</p>
             <p>${movesBonusMessage}</p>
+            ${highScoreMessage}
             <button id="close-game-message" class="close-button">x</button>
         `;
         gameMessage.style.display = 'block'; // Show the message
-
-        // Update high score if the current score is higher
-        if (score > highScore) {
-            highScore = score;
-            localStorage.setItem('highScore', highScore);
-            highScoreElement.textContent = highScore;
-        }
 
         // Add event listener for the close button in the game message
         document.getElementById('close-game-message').addEventListener('click', function() {
@@ -209,6 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     startNewGameButton.addEventListener('click', startNewGame);
+
+    // Event listener to reset the high score
+    resetHighScoreButton.addEventListener('click', () => {
+        localStorage.removeItem('highScore');
+        highScore = 0;
+        highScoreElement.textContent = highScore;
+    });
 
     // Hide timer, score, and moves initially
     timerElement.style.display = 'none';
