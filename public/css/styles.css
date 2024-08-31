@@ -17,6 +17,41 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Container for game board and game information */
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+/* Bonus container */
+#bonuses {
+    margin-left: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 200px;
+}
+
+#bonuses h3 {
+    text-align: center;
+}
+
+#bonus-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#bonus-list li {
+    margin: 5px 0;
+}
+
+/* Game board and game information container */
+#game-board-info-container {
+    text-align: center;
+}
+
 /* Set up the game board grid */
 #game-board {
     display: grid;
@@ -53,35 +88,9 @@ h1 {
     background-image: url(''); /* This will be set dynamically in JavaScript */
 }
 
-/* Individual card style */
-.card {
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    border: 2px solid #00796b;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    background-size: cover; 
-}
-
 /* Hover effect for cards */
 .card:hover {
     transform: scale(1.1);
-}
-
-/* Hide card images by default */
-.card img {
-    display: none;
-    width: 80%;
-    height: 80%;
-}
-
-/* Show card image when flipped */
-.card.flipped img {
-    display: block;
 }
 
 /* Style for game info section */

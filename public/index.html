@@ -6,20 +6,36 @@
     <title>Prehistoric Memory</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-    <body>
-        <h1>Prehistoric Memory</h1>
-        <!-- Container for the game board -->
-        <div id="game-board"></div>
-        <!-- Container for game information (timer, score, moves) -->
-        <div id="game-info">
-            <div id="timer">Time: 0s</div>
-            <div id="score">Score: 0</div>
-            <div id="moves">Moves: 0</div>
+<body>
+    <h1>Prehistoric Memory</h1>
+    <!-- Container for game board and game information -->
+    <div id="game-container">
+        <!-- Game board and game information container -->
+        <div id="game-board-info-container">
+            <div id="game-board"></div>
+            <div id="game-message" class="hidden"></div>
+            <div id="game-info">
+                <div id="timer">Time: 0s</div>
+                <div id="score">Score: 0</div>
+                <div id="moves">Moves: 0</div>
+            </div>
+            <button id="start-new-game">Start New Game</button>
         </div>
-        <!-- Button to start a new game -->
-        <button id="start-new-game">Start New Game</button>
-        <!-- Completion message -->
-        <div id="game-message" class="hidden"></div>
-        <script src="js/script.js"></script>
-    </body>
+        <!-- Bonus container -->
+        <div id="bonuses">
+            <h3>Bonuses</h3>
+            <ul id="bonus-list">
+                <li id="time-bonus">Time Bonuses</li>
+                <li>60 Seconds - 10 Points</li>
+                <li>45 Seconds - 15 Points</li>
+                <li>30 Seconds - 20 Points</li>
+                <li id="move-bonus">Move Bonuses</li>
+                <li>10 Moves - 30 Points</li>
+                <li>15 Moves - 20 Points</li>
+                <li>20 Moves - 10 Points</li>
+            </ul>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
 </html>
