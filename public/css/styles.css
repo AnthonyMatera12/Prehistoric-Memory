@@ -26,7 +26,7 @@ h1 {
     margin-left: 170px; /* Adjusted value to shift everything further to the right */
 }
 
-/* Bonus container */
+/* Bonus styles */
 #bonuses {
     display: none; /* Hide the bonus list initially */
     margin-left: 20px;
@@ -72,7 +72,7 @@ h1 {
 
 /* Style for "Reset High Score" button */
 #reset-high-score {
-    background-color: #00796b; /* Green background */
+    background-color: #0b897a; /* Green background */
     border: none; 
     color: white;
     padding: 10px 20px; 
@@ -91,7 +91,7 @@ h1 {
 
 /* Hover effect for the "Reset High Score" button */
 #reset-high-score:hover {
-    background-color: #0b897a; /* Darker green on hover */
+    background-color: #00796b; /* Darker green on hover */
 }
 
 /* Game board and game information container */

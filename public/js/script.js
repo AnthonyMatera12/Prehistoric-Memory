@@ -184,25 +184,24 @@ document.addEventListener('DOMContentLoaded', () => {
         score += timeBonus + movesBonus;
         scoreElement.textContent = `Score: ${score}`;
 
-        let highScoreMessage = '';
+        let highScoreMessage = 'Congratulations!';
 
         // Update high score if the current score is higher
         if (score > highScore) {
             highScore = score;
             localStorage.setItem('highScore', highScore);
             highScoreElement.textContent = highScore;
-            highScoreMessage = '<p>Congratulations! You got the new high score!</p>';
+            highScoreMessage = 'Congratulations! You got the new high score!';
         }
 
         gameMessage.innerHTML = `
-            <h2>Congratulations!</h2>
+            <h2>${highScoreMessage}</h2>
             <p>You completed the game.</p>
             <p>Time: ${timer}s</p>
             <p>Score: ${score}</p>
             <p>Moves: ${moves}</p>
             <p>${timeBonusMessage}</p>
             <p>${movesBonusMessage}</p>
-            ${highScoreMessage}
             <button id="close-game-message" class="close-button">x</button>
         `;
         gameMessage.style.display = 'block'; // Show the message
