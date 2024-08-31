@@ -1,105 +1,101 @@
-let gameBoard = document.getElementById('game-board');
-let startButton = document.getElementById('start-button');
-let movesDisplay = document.getElementById('moves');
-let timerDisplay = document.getElementById('timer');
-let scoreDisplay = document.getElementById('score');
+document.addEventListener('DOMContentLoaded', () => {
+    const cardsArray = [
+        { name: 't-rex', img: 'images/t-rex.png' },
+        { name: 'stegosaurus', img: 'images/stegosaurus.png' },
+        { name: 'triceratops', img: 'images/triceratops.png' },
+        { name: 'pterodactyl', img: 'images/pterodactyl.png' },
+        { name: 'brachiosaurus', img: 'images/brachiosaurus.png' },
+        { name: 'velociraptor', img: 'images/velociraptor.png' },
+        { name: 'ankylosaurus', img: 'images/ankylosaurus.png' },
+        { name: 'spinosaurus', img: 'images/spinosaurus.png' },
+        { name: 't-rex', img: 'images/t-rex.png' },
+        { name: 'stegosaurus', img: 'images/stegosaurus.png' },
+        { name: 'triceratops', img: 'images/triceratops.png' },
+        { name: 'pterodactyl', img: 'images/pterodactyl.png' },
+        { name: 'brachiosaurus', img: 'images/brachiosaurus.png' },
+        { name: 'velociraptor', img: 'images/velociraptor.png' },
+        { name: 'ankylosaurus', img: 'images/ankylosaurus.png' },
+        { name: 'spinosaurus', img: 'images/spinosaurus.png' }
+    ];
 
-let cards = [];
-let flippedCards = [];
-let moves = 0;
-let score = 0;
-let timer;
-let seconds = 0;
+    const gameBoard = document.getElementById('game-board');
+    const timerElement = document.getElementById('timer');
+    const scoreElement = document.getElementById('score');
+    const movesElement = document.getElementById('moves');
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let score = 0;
+    let moves = 0;
+    let timer = 0;
+    let interval;
 
-startButton.addEventListener('click', startNewGame);
+    function startTimer() {
+        interval = setInterval(() => {
+            timer++;
+            timerElement.textContent = `Time: ${timer}s`;
+        }, 1000);
+    }
 
-async function startNewGame() {
-    clearInterval(timer);
-    gameBoard.innerHTML = '';
-    cards = [];
-    flippedCards = [];
-    moves = 0;
-    score = 0;
-    seconds = 0;
-    movesDisplay.textContent = moves;
-    scoreDisplay.textContent = score;
-    timerDisplay.textContent = '00:00';
-
-    try {
-        const response = await fetch('/api/game-data');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        let dinosaurs = await response.json();
-        dinosaurs = dinosaurs.sort(() => 0.5 - Math.random()).slice(0, 18);
-        dinosaurs = [...dinosaurs, ...dinosaurs].sort(() => 0.5 - Math.random());
-
-        dinosaurs.forEach((dino, index) => {
-            let card = document.createElement('div');
-            card.classList.add('card');
-            card.dataset.index = index;
-            card.dataset.name = dino.name;
-            card.dataset.diet = dino.diet;
-            card.dataset.period = dino.period;
-            card.addEventListener('click', flipCard);
-            gameBoard.appendChild(card);
-            cards.push(card);
+    function createBoard() {
+        cardsArray.sort(() => 0.5 - Math.random());
+        cardsArray.forEach(card => {
+            const cardElement = document.createElement('div');
+            cardElement.classList.add('card');
+            cardElement.dataset.name = card.name;
+            cardElement.innerHTML = `<img src="${card.img}" alt="${card.name}">`;
+            cardElement.addEventListener('click', flipCard);
+            gameBoard.appendChild(cardElement);
         });
-
-        timer = setInterval(updateTimer, 1000);
-    } catch (error) {
-        console.error('Error fetching game data:', error);
-        gameBoard.innerHTML = '<p>Error loading game. Please try again.</p>';
+        startTimer();
     }
-}
 
-function flipCard() {
-    if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
-        this.textContent = this.dataset.name;
+    function flipCard() {
+        if (lockBoard) return;
+        if (this === firstCard) return;
+
         this.classList.add('flipped');
-        flippedCards.push(this);
 
-        if (flippedCards.length === 2) {
-            moves++;
-            movesDisplay.textContent = moves;
-            setTimeout(checkMatch, 1000);
+        if (!firstCard) {
+            firstCard = this;
+            return;
+        }
+
+        secondCard = this;
+        moves++;
+        movesElement.textContent = `Moves: ${moves}`;
+        checkForMatch();
+    }
+
+    function checkForMatch() {
+        let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+        isMatch ? disableCards() : unflipCards();
+    }
+
+    function disableCards() {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+        score += 10;
+        scoreElement.textContent = `Score: ${score}`;
+        resetBoard();
+        if (document.querySelectorAll('.card.flipped').length === cardsArray.length) {
+            clearInterval(interval);
+            alert(`Game Over! Your score is ${score} and you completed the game in ${timer} seconds with ${moves} moves.`);
         }
     }
-}
 
-function checkMatch() {
-    let [card1, card2] = flippedCards;
-    let isMatch = card1.dataset.name === card2.dataset.name ||
-                  card1.dataset.diet === card2.dataset.diet ||
-                  card1.dataset.period === card2.dataset.period;
-
-    if (isMatch) {
-        score += 10;
-        scoreDisplay.textContent = score;
-        card1.removeEventListener('click', flipCard);
-        card2.removeEventListener('click', flipCard);
-    } else {
-        card1.textContent = '';
-        card2.textContent = '';
-        card1.classList.remove('flipped');
-        card2.classList.remove('flipped');
+    function unflipCards() {
+        lockBoard = true;
+        setTimeout(() => {
+            firstCard.classList.remove('flipped');
+            secondCard.classList.remove('flipped');
+            resetBoard();
+        }, 1500);
     }
 
-    flippedCards = [];
-
-    if (document.querySelectorAll('.flipped').length === cards.length) {
-        clearInterval(timer);
-        alert(`Congratulations! You've completed the game in ${moves} moves and ${formatTime(seconds)}!`);
+    function resetBoard() {
+        [firstCard, secondCard, lockBoard] = [null, null, false];
     }
-}
 
-function updateTimer() {
-    seconds++;
-    timerDisplay.textContent = formatTime(seconds);
-}
-
-function formatTime(totalSeconds) {
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-}
+    createBoard();
+});
