@@ -25,6 +25,34 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Add card styles */
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 2px solid #00796b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-size: cover; 
+}
+
+.card img {
+    display: none;
+    width: 80%;
+    height: 80%;
+}
+
+.card.flipped img {
+    display: block;
+}
+
+.card.flipped {
+    background-image: url(''); /* This will be set dynamically in JavaScript */
+}
+
 /* Individual card style */
 .card {
     width: 100px;
@@ -36,7 +64,7 @@ h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.3s;
+    background-size: cover; 
 }
 
 /* Hover effect for cards */

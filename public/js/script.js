@@ -42,58 +42,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    startNewGameButton.addEventListener('click', () => {
-        startNewGame();
-    });
-
     function startNewGame() {
-        // Reset game state
-        clearInterval(interval);
-        firstCard = null;
-        secondCard = null;
-        lockBoard = false;
+        gameStarted = true;
+        startTimer();
         score = 0;
         moves = 0;
-        timer = 0;
-        gameStarted = true;
-
-        // Clear the game board
+        scoreElement.textContent = `Score: ${score}`;
+        movesElement.textContent = `Moves: ${moves}`;
         gameBoard.innerHTML = '';
 
-        // Reset and show UI elements
-        timerElement.textContent = 'Time: 0s';
-        scoreElement.textContent = 'Score: 0';
-        movesElement.textContent = 'Moves: 0';
+        // Show timer, score, and moves
         timerElement.style.display = 'block';
         scoreElement.style.display = 'block';
         movesElement.style.display = 'block';
 
-        // Create a new board
-        createBoard();
+        // Shuffle the cards
+        const shuffledCards = cardsArray.sort(() => 0.5 - Math.random());
 
-        console.log('New game started!');
-    }
-
-    function createBoard() {
-        cardsArray.sort(() => 0.5 - Math.random());
-
-        cardsArray.forEach(card => {
+        // Create card elements and add them to the game board
+        shuffledCards.forEach(card => {
             const cardElement = document.createElement('div');
             cardElement.classList.add('card');
             cardElement.dataset.name = card.name;
-            cardElement.innerHTML = `<img src="${card.img}" alt="${card.name}">`;
-            cardElement.addEventListener('click', flipCard);
+            cardElement.dataset.img = card.img;
             gameBoard.appendChild(cardElement);
         });
 
-        startTimer();
+        // Add event listeners to flip the cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', flipCard);
+        });
     }
 
     function flipCard() {
-        if (!gameStarted || lockBoard) return;
+        if (lockBoard) return;
         if (this === firstCard) return;
 
         this.classList.add('flipped');
+        this.style.backgroundImage = `url(${this.dataset.img})`;
 
         if (!firstCard) {
             firstCard = this;
@@ -101,36 +87,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         secondCard = this;
-        moves++;
-        movesElement.textContent = `Moves: ${moves}`;
-
         checkForMatch();
     }
 
     function checkForMatch() {
         let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+
         isMatch ? disableCards() : unflipCards();
     }
 
     function disableCards() {
         firstCard.removeEventListener('click', flipCard);
         secondCard.removeEventListener('click', flipCard);
-        score += 10;
-        scoreElement.textContent = `Score: ${score}`;
-        resetBoard();
 
-        if (document.querySelectorAll('.card.flipped').length === cardsArray.length) {
-            clearInterval(interval);
-            alert(`Game Over! Your score is ${score} and you completed the game in ${timer} seconds with ${moves} moves.`);
-            gameStarted = false;
-        }
+        resetBoard();
     }
 
     function unflipCards() {
         lockBoard = true;
+
         setTimeout(() => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
+            firstCard.style.backgroundImage = 'none';
+            secondCard.style.backgroundImage = 'none';
+
             resetBoard();
         }, 1500);
     }
@@ -139,9 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
         [firstCard, secondCard, lockBoard] = [null, null, false];
     }
 
+    startNewGameButton.addEventListener('click', startNewGame);
+
     // Hide timer, score, and moves initially
     timerElement.style.display = 'none';
     scoreElement.style.display = 'none';
     movesElement.style.display = 'none';
 });
-
