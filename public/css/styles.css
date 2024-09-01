@@ -4,10 +4,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    justify-content: flex-start;
+    min-height: 100vh;
     margin: 0;
     background-color: #e0f7fa;
+    overflow-y: auto; 
+
 }
 
 /* Style for main heading */
@@ -20,9 +22,10 @@ h1 {
 /* Container for game board and game information */
 #game-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     margin-top: 20px;
+    margin-left: 170px; 
 }
 
 /* Bonus styles */
@@ -62,7 +65,12 @@ h1 {
     margin-top: 20px;
     font-size: 1.5em;   
     color: #00796b;
+}
+
+#high-score {
     text-align: center;
+    font-size: 1.5em;
+    color: #00796b;
 }
 
 /* Style for "Reset High Score" button */
@@ -205,6 +213,7 @@ h1 {
     display: none;
 }
 
+
 /* Game message styles */
 #game-message {
     display: none;
@@ -239,24 +248,26 @@ h1 {
     color: rgb(139, 139, 139);
 }
 
-/* Responsive styles */
-@media (max-width: 600px) {
+/* Responsive styles for mobile phones */
+@media (max-width: 375px) {
     h1 {
         font-size: 2em;
     }
 
+    /* Game styles */
     #game-container {
         margin-left: 0;
+        flex-direction: column;
     }
 
     #game-board {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-gap: 5px;
     }
 
     .card {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
     }
 
     #game-info {
@@ -273,5 +284,13 @@ h1 {
     #reset-high-score {
         padding: 8px 16px;
         font-size: 14px;
+    }
+
+    /* Move bonuses below all other elements and hide initially */
+    #bonuses {
+        display: none;
+        margin-top: 20px; 
+        width: 100%; 
+        box-sizing: border-box;
     }
 }
