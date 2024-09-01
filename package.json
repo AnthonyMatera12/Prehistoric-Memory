@@ -1,5 +1,5 @@
 {
-  "name": "elemental-memory",
+  "name": "prehistoric-memory",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "author": "Anthony Matera",
   "license": "ISC",
   "dependencies": {
-    "elemental-memory": "file:",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "prehistoric-memory": "file:"
   }
 }
