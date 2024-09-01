@@ -20,10 +20,9 @@ h1 {
 /* Container for game board and game information */
 #game-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     margin-top: 20px;
-    margin-left: 170px; 
 }
 
 /* Bonus styles */
@@ -63,12 +62,7 @@ h1 {
     margin-top: 20px;
     font-size: 1.5em;   
     color: #00796b;
-}
-
-#high-score {
     text-align: center;
-    font-size: 1.5em;
-    color: #00796b;
 }
 
 /* Style for "Reset High Score" button */
@@ -211,7 +205,6 @@ h1 {
     display: none;
 }
 
-
 /* Game message styles */
 #game-message {
     display: none;
@@ -244,4 +237,41 @@ h1 {
 
 #game-message .close-button:hover{
     color: rgb(139, 139, 139);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    #game-container {
+        margin-left: 0;
+    }
+
+    #game-board {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 5px;
+    }
+
+    .card {
+        width: 80px;
+        height: 80px;
+    }
+
+    #game-info {
+        flex-direction: column;
+        align-items: center;
+        font-size: 1em;
+    }
+
+    #start-new-game {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    #reset-high-score {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 }
