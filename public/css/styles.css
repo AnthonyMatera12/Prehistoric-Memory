@@ -1,0 +1,247 @@
+/* Body style */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #e0f7fa;
+}
+
+/* Style for main heading */
+h1 {
+    font-size: 3em;
+    color: #00796b;
+    margin-bottom: 20px;
+}
+
+/* Container for game board and game information */
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 170px; 
+}
+
+/* Bonus styles */
+#bonuses {
+    display: none; /* Hide the bonus list initially */
+    margin-left: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 200px;
+}
+
+#bonuses h3 {
+    text-align: center;
+}
+
+#bonus-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#bonus-list li {
+    margin: 5px 0;
+}
+
+/* Bold the Time Bonuses and Move Bonuses */
+#time-bonus, #move-bonus {
+    font-weight: bold;
+}
+
+/* High score styling */
+#high-score {
+    border: 2px solid #00796b;
+    background-color: #b2dfdb;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 1.5em;   
+    color: #00796b;
+}
+
+#high-score {
+    text-align: center;
+    font-size: 1.5em;
+    color: #00796b;
+}
+
+/* Style for "Reset High Score" button */
+#reset-high-score {
+    background-color: #0b897a; 
+    border: none; 
+    color: white;
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; 
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    margin: 10px 0; 
+    cursor: pointer; 
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+/* Hover effect for the "Reset High Score" button */
+#reset-high-score:hover {
+    background-color: #00796b;
+}
+
+/* Game board and game information container */
+#game-board-info-container {
+    text-align: center;
+}
+
+/* Set up the game board grid */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Card styles */
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 2px solid #00796b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-size: cover; 
+}
+
+.card img {
+    display: none;
+    width: 80%;
+    height: 80%;
+}
+
+.card.flipped img {
+    display: block;
+}
+
+.card.flipped {
+    background-image: url(''); /* This will be set dynamically in js */
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: scale(1.1);
+}
+
+/* Style for game info section */
+#game-info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 400px;
+    font-size: 1.2em;
+    color: #00796b;
+}
+
+/* Style for "Start New Game" button */
+#start-new-game {
+    background-color: #4CAF50; 
+    border: none; 
+    color: white;
+    padding: 15px 32px; 
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px; 
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 12px;
+    transition: background-color 0.3s;
+}
+
+/* Center the start button initially */
+#start-new-game.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 100px;
+    padding: 20px 40px; 
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 30px; 
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Shift the start button to the left */
+#start-new-game.left {
+    position: static;
+    margin: 20px 0 20px 20px;
+    padding: 20px 40px; 
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px; 
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the "Start New Game" button */
+#start-new-game:hover {
+    background-color: #37813b;
+}
+
+/* Style to hide elements */
+.hidden {
+    display: none;
+}
+
+
+/* Game message styles */
+#game-message {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);   
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+}    
+
+#game-message.show {
+    display: block;
+}
+
+#game-message .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+#game-message .close-button:hover{
+    color: rgb(139, 139, 139);
+}
